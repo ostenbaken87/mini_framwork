@@ -1,0 +1,23 @@
+{
+    "name": "nikolay/framework",
+    "description": "framework-pet",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "NIkolay Solovev",
+            "email": "ostenbaken87@mail.ru"
+        }
+    ],
+    "require": {
+        "nikolay/framework": "1.0.0+no-version-set"
+    },
+    "require-dev": {
+        "php": "^8.3"
+    }
+}

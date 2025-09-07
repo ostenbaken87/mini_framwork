@@ -1,0 +1,43 @@
+services:
+  php:
+    build: .
+    image: php_framework
+    container_name: php-framework
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+    environment:
+      - APP_ENV=${APP_ENV:-development}
+      - XDEBUG_ENABLED=${XDEBUG_ENABLED:-0}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0.32
+    container_name: mysql-framework
+    user: "1000:1000"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  mysql_data:
