@@ -8,4 +8,9 @@ $dotenv->safeLoad();
 
 use App\App;
 
-App::run();
+try {
+    App::run();
+} catch (Throwable $e) {
+    http_response_code(500);
+    include VIEWS . "/errors/500.view.php";
+}

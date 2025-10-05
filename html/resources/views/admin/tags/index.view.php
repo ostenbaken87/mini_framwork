@@ -16,15 +16,16 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">№</th>
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Название</th>
                         <th class="px-4 py-2"></th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
+                    <?php $count = 1; ?>
                     <?php foreach ($tags as $tag): ?>
                         <tr>
-                            <td class="px-4 py-2 text-sm text-gray-900"><?php echo (int)$tag['id']; ?></td>
+                            <td class="px-4 py-2 text-sm text-gray-900"><?php echo $count++; ?></td>
                             <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlspecialchars($tag['name'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td class="px-4 py-2 text-sm text-right">
                                 <a href="/admin/tags/<?php echo (int)$tag['id']; ?>/edit" class="text-blue-600 hover:text-blue-800 mr-3">Изменить</a>

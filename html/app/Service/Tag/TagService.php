@@ -3,6 +3,7 @@
 namespace App\Service\Tag;
 
 use App\Repository\Tag\TagRepositoryInterface;
+use Dotenv\Exception\ValidationException;
 use InvalidArgumentException;
 
 class TagService implements TagServiceInterface
@@ -19,7 +20,7 @@ class TagService implements TagServiceInterface
     public function getTag(int $id): ?array
     {
         if (!$this->tagRepository->tagExists($id)){
-            throw new InvalidArgumentException("Tag with ID $id not found");
+            throw new ValidationException("Tag with ID $id not found");
         }
 
         return $this->tagRepository->getTagById($id);

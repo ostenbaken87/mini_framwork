@@ -13,7 +13,7 @@
             <a href="#" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800 mb-2">
                 <i class="fas fa-newspaper mr-2"></i> Статьи
             </a>
-            <a href="#" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800 mb-2">
+            <a href="/admin/categories" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800 mb-2">
                 <i class="fas fa-folder mr-2"></i> Категории
             </a>
             <a href="/admin/tags" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800">
