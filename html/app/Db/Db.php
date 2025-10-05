@@ -70,10 +70,12 @@ class Db
         return $this->stmt->fetch();
     }
 
-    public function findOrFaile()
+    public function findOrFail(): mixed
     {
-        $res = $this->find();
-        empty($res) ? $this->error(404) : $res;
-        return $res;
+        $result = $this->find();
+        if (empty($result)) {
+            $this->error(404);
+        }
+        return $result;
     }
 }
