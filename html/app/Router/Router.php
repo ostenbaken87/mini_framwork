@@ -11,6 +11,7 @@ class Router
     use Helpers;
 
     private array $routes = [];
+    private array $matchedParams = [];
 
     public function __construct(){$this->loadRoutes();}
 
@@ -31,7 +32,7 @@ class Router
             }
         }
 
-        $this->error(500);
+        $this->error(404);
     }
 
     private function matchRoute(Route $route, string $requestUrl, string $requestMethod): bool
@@ -42,10 +43,36 @@ class Router
         }
         //Check url request
         if($route->url === $requestUrl) {
+            $this->matchedParams = [];
             return true;
         }
         //Dinamic params
-        
+        // Supported formats:
+        // - /posts/{id}
+        // - /posts/{id:\\d+}
+        // - Multiple params: /users/{userId}/posts/{postId}
+        $pattern = $route->url;
+        $paramNames = [];
+
+        $regex = preg_replace_callback('/\{(\w+)(?::([^}]+))?\}/', function ($matches) use (&$paramNames) {
+            $paramNames[] = $matches[1];
+            $constraint = isset($matches[2]) && $matches[2] !== '' ? $matches[2] : '[^/]+';
+            return '(?P<' . $matches[1] . '>' . $constraint . ')';
+        }, $pattern);
+
+        $regex = '#^' . $regex . '$#u';
+
+        if (preg_match($regex, $requestUrl, $matches)) {
+            $params = [];
+            foreach ($paramNames as $name) {
+                if (array_key_exists($name, $matches)) {
+                    $params[$name] = $matches[$name];
+                }
+            }
+            $this->matchedParams = $params;
+            return true;
+        }
+
         return false;
     }
 
@@ -65,6 +92,6 @@ class Router
         }
 
         $controller = new $controllerClass();
-        echo $controller->$action();
+        echo $controller->$action(...array_values($this->matchedParams));
     }
 }
