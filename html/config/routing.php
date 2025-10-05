@@ -21,4 +21,11 @@ return [
     Route::get("/admin/categories/{id:\\d+}/edit", "Admin\CategoryController", "edit"),
     Route::post("/admin/categories/{id:\\d+}", "Admin\CategoryController", "update"),
     Route::post("/admin/categories/{id:\\d+}/delete", "Admin\CategoryController", "destroy"),
+    // Article CRUD
+    Route::get("/admin/articles", "Admin\ArticleController", "index"),
+    Route::get("/admin/articles/create", "Admin\ArticleController", "create"),
+    Route::post("/admin/articles", "Admin\ArticleController", "store"),
+    Route::get("/admin/articles/{id:\\d+}/edit", "Admin\ArticleController", "edit"),
+    Route::post("/admin/articles/{id:\\d+}", "Admin\ArticleController", "update"),
+    Route::post("/admin/articles/{id:\\d+}/delete", "Admin\ArticleController", "destroy"),
 ];
