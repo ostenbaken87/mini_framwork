@@ -14,4 +14,11 @@ return [
     Route::get("/admin/tags/{id:\\d+}/edit", "Admin\TagController", "edit"),
     Route::post("/admin/tags/{id:\\d+}", "Admin\TagController", "update"),
     Route::post("/admin/tags/{id:\\d+}/delete", "Admin\TagController", "destroy"),
+    // Category CRUD
+    Route::get("/admin/categories", "Admin\CategoryController", "index"),
+    Route::get("/admin/categories/create", "Admin\CategoryController", "create"),
+    Route::post("/admin/categories", "Admin\CategoryController", "store"),
+    Route::get("/admin/categories/{id:\\d+}/edit", "Admin\CategoryController", "edit"),
+    Route::post("/admin/categories/{id:\\d+}", "Admin\CategoryController", "update"),
+    Route::post("/admin/categories/{id:\\d+}/delete", "Admin\CategoryController", "destroy"),
 ];

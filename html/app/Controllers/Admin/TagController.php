@@ -13,7 +13,6 @@ class TagController
 
     public function __construct()
     {
-        // Very simple wiring; consider DI container later
         $pdo = Db::getInstance()->getConnection();
         $repository = new TagRepository($pdo);
         $this->service = new TagService($repository);
