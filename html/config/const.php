@@ -7,5 +7,5 @@ define("CORE", ROOT . '/core');
 define("APP", ROOT . '/app');
 define("VIEWS", ROOT . '/resources/views');
 define("COMPONENTS", ROOT . '/resources/components');
-define("CONTROLLERS", APP . '/controllers');
+define("CONTROLLERS", APP . '/Controllers');
 define("PATH", 'http://framework.loc');

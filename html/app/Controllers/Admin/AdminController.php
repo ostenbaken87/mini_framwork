@@ -6,8 +6,9 @@ use App\View\View;
 
 class AdminController
 {
-    public function index()
+    public function index(): bool|string
     {
-        return View::render('admin/main');
+        $title = 'Дашборд';
+        return View::render('admin/main',['title' => $title]);
     }
 }
