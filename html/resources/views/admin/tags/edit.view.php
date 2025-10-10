@@ -8,7 +8,7 @@
     <h2 class="text-2xl font-bold mb-4">Редактировать тег</h2>
     <div class="bg-white rounded-lg shadow-md p-6">
         <form method="post" action="/admin/tags/<?php echo (int)$tag['id']; ?>">
-            <?php echo \App\Traits\CsrfHelper::csrfFieldStatic(); ?>
+            <?php echo \App\Helpers\CsrfHelper::csrfField(); ?>
             <?php if (!empty($errors)): ?>
                 <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
                     <?php foreach ($errors as $error): ?>

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Container;
 
+use App\Service\Tag\TagServiceInterface;
+use App\Service\Article\ArticleServiceInterface;
+use App\Service\Category\CategoryServiceInterface;
+
 class AppContainer
 {
     private static ?Container $container = null;

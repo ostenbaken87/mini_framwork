@@ -7,6 +7,7 @@ namespace App\Controllers\Admin;
 use App\View\View;
 use App\Service\Tag\TagServiceInterface;
 use App\Traits\CsrfHelper;
+use App\Helpers\CsrfHelper as CsrfHelperStatic;
 use App\Container\AppContainer;
 
 class TagController
@@ -20,14 +21,14 @@ class TagController
         $this->service = AppContainer::getTagService();
     }
 
-    public function index(): bool|string
+    public function index(): string
     {
         $title = 'Теги';
         $tags = $this->service->getAllTags();
         return View::render('admin/tags/index',["title" => $title, "tags" => $tags]);
     }
 
-    public function create(): bool|string
+    public function create(): string
     {
         $title = 'Создать тег';
         $errors = $_SESSION['errors'] ?? [];
@@ -37,7 +38,7 @@ class TagController
 
     public function store(): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/tags/create');
             exit;
@@ -58,7 +59,7 @@ class TagController
         }
     }
 
-    public function edit(string $id): bool|string
+    public function edit(string $id): string
     {
         $title = 'Редактировать тег';
         $tag = $this->service->getTag((int)$id);
@@ -69,7 +70,7 @@ class TagController
 
     public function update(string $id): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/tags/' . $id . '/edit');
             exit;
@@ -92,7 +93,7 @@ class TagController
 
     public function destroy(string $id): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/tags');
             exit;

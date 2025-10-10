@@ -25,7 +25,7 @@ class AdminController
         $this->categoryService = new CategoryService($repositoryCategory);
     }
 
-    public function index(): bool|string
+    public function index(): string
     {
         $title = 'Дашборд';
         $tags = $this->serviceTag->getAllTags();

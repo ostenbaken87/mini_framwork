@@ -57,16 +57,22 @@ class Container
     // Convenience methods for type safety
     public function getTagService(): TagServiceInterface
     {
-        return $this->get('tag.service');
+        $service = $this->get('tag.service');
+        assert($service instanceof TagServiceInterface);
+        return $service;
     }
 
     public function getCategoryService(): CategoryServiceInterface
     {
-        return $this->get('category.service');
+        $service = $this->get('category.service');
+        assert($service instanceof CategoryServiceInterface);
+        return $service;
     }
 
     public function getArticleService(): ArticleServiceInterface
     {
-        return $this->get('article.service');
+        $service = $this->get('article.service');
+        assert($service instanceof ArticleServiceInterface);
+        return $service;
     }
 }

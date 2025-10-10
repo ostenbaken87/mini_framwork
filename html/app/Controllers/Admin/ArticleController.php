@@ -7,6 +7,7 @@ namespace App\Controllers\Admin;
 use App\View\View;
 use App\Service\Article\ArticleServiceInterface;
 use App\Traits\CsrfHelper;
+use App\Helpers\CsrfHelper as CsrfHelperStatic;
 use App\Container\AppContainer;
 
 class ArticleController
@@ -20,14 +21,14 @@ class ArticleController
         $this->service = AppContainer::getArticleService();
     }
 
-    public function index(): bool|string
+    public function index(): string
     {
         $title = 'Статьи';
         $articles = $this->service->list();
         return View::render('admin/articles/index', compact('title', 'articles'));
     }
 
-    public function create(): bool|string
+    public function create(): string
     {
         $title = 'Создать статью';
         $form = $this->service->getFormData();
@@ -38,7 +39,7 @@ class ArticleController
 
     public function store(): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/articles/create');
             exit;
@@ -63,7 +64,7 @@ class ArticleController
         }
     }
 
-    public function edit(string $id): bool|string
+    public function edit(string $id): string
     {
         $title = 'Редактировать статью';
         $article = $this->service->get((int)$id);
@@ -75,7 +76,7 @@ class ArticleController
 
     public function update(string $id): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/articles/' . $id . '/edit');
             exit;
@@ -102,7 +103,7 @@ class ArticleController
 
     public function destroy(string $id): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/articles');
             exit;

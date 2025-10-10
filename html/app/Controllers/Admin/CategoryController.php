@@ -7,6 +7,7 @@ namespace App\Controllers\Admin;
 use App\View\View;
 use App\Service\Category\CategoryServiceInterface;
 use App\Traits\CsrfHelper;
+use App\Helpers\CsrfHelper as CsrfHelperStatic;
 use App\Container\AppContainer;
 
 class CategoryController
@@ -20,14 +21,14 @@ class CategoryController
         $this->service = AppContainer::getCategoryService();
     }
 
-    public function index(): bool|string
+    public function index(): string
     {
         $title = 'Категории';
         $categories = $this->service->getAllCategories();
         return View::render('admin/categories/index',["title" => $title, "categories" => $categories]);
     }
 
-    public function create(): bool|string
+    public function create(): string
     {
         $title = 'Создать категорию';
         $errors = $_SESSION['errors'] ?? [];
@@ -37,7 +38,7 @@ class CategoryController
     
     public function store(): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/categories/create');
             exit;
@@ -58,7 +59,7 @@ class CategoryController
         }
     }
 
-    public function edit(string $id): bool|string
+    public function edit(string $id): string
     {
         $title = 'Редактировать категорию';
         $category = $this->service->getCategory((int)$id);
@@ -69,7 +70,7 @@ class CategoryController
     
     public function update(string $id): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/categories/' . $id . '/edit');
             exit;
@@ -92,7 +93,7 @@ class CategoryController
 
     public function destroy(string $id): void
     {
-        if (!$this->validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        if (!CsrfHelperStatic::validateToken($_POST['csrf_token'] ?? '')) {
             $_SESSION['errors'] = ['csrf' => 'Invalid CSRF token'];
             header('Location: /admin/categories');
             exit;

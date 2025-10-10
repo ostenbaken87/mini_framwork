@@ -10,7 +10,7 @@
             <a href="/admin" class="block py-2 px-4 rounded bg-primary text-white mb-2">
                 <i class="fas fa-tachometer-alt mr-2"></i> Дашборд
             </a>
-            <a href="#" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800 mb-2">
+            <a href="/admin/articles" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800 mb-2">
                 <i class="fas fa-newspaper mr-2"></i> Статьи
             </a>
             <a href="/admin/categories" class="block py-2 px-4 rounded text-gray-300 hover:bg-gray-800 mb-2">
