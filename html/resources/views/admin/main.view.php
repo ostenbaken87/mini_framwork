@@ -185,9 +185,11 @@
                 <?php foreach ($tags as $tag): ?>
                     <div class="bg-blue-50 border border-blue-200 rounded-full px-3 py-1 flex items-center">
                         <span class="text-blue-700 text-sm"><?php echo $tag['name']; ?></span>
-                        <button class="ml-1 text-blue-500 hover:text-blue-700">
-                            <i class="fas fa-times text-xs"></i>
-                        </button>
+                        <form action="/admin/tags/<?php echo (int)$tag['id']; ?>/delete" method="post">
+                            <button class="ml-1 text-blue-500 hover:text-blue-700" onclick="return confirm('Удалить тег?')">
+                                <i class="fas fa-times text-xs"></i>
+                            </button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             </div>

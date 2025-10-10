@@ -30,6 +30,7 @@
                             <td class="px-4 py-2 text-sm text-right">
                                 <a href="/admin/tags/<?php echo (int)$tag['id']; ?>/edit" class="text-blue-600 hover:text-blue-800 mr-3">Изменить</a>
                                 <form action="/admin/tags/<?php echo (int)$tag['id']; ?>/delete" method="post" style="display:inline">
+                                    <?php echo \App\Helpers\CsrfHelper::csrfField(); ?>
                                     <button type="submit" class="text-red-600 hover:text-red-800" onclick="return confirm('Удалить тег?')">Удалить</button>
                                 </form>
                             </td>

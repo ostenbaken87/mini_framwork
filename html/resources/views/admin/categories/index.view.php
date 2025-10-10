@@ -35,6 +35,7 @@
                             <td class="px-4 py-2 text-sm text-right">
                                 <a href="/admin/categories/<?php echo (int)$category['id']; ?>/edit" class="text-blue-600 hover:text-blue-800 mr-3">Изменить</a>
                                 <form action="/admin/categories/<?php echo (int)$category['id']; ?>/delete" method="post" style="display:inline">
+                                    <?php echo \App\Helpers\CsrfHelper::csrfField(); ?>
                                     <button type="submit" class="text-red-600 hover:text-red-800" onclick="return confirm('Удалить категорию?')">Удалить</button>
                                 </form>
                             </td>
