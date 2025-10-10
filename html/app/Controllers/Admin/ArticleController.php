@@ -1,24 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Admin;
 
 use App\View\View;
-use App\Db\Db;
-use App\Repository\Article\ArticleRepository;
-use App\Service\Article\ArticleService;
+use App\Service\Article\ArticleServiceInterface;
 use App\Traits\CsrfHelper;
+use App\Container\AppContainer;
 
 class ArticleController
 {
     use CsrfHelper;
     
-    private ArticleService $service;
+    private ArticleServiceInterface $service;
 
     public function __construct()
     {
-        $pdo = Db::getInstance()->getConnection();
-        $repository = new ArticleRepository($pdo);
-        $this->service = new ArticleService($repository);
+        $this->service = AppContainer::getArticleService();
     }
 
     public function index(): bool|string

@@ -1,24 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Admin;
 
 use App\View\View;
-use App\Db\Db;
-use App\Repository\Tag\TagRepository;
-use App\Service\Tag\TagService;
+use App\Service\Tag\TagServiceInterface;
 use App\Traits\CsrfHelper;
+use App\Container\AppContainer;
 
 class TagController
 {
     use CsrfHelper;
     
-    private TagService $service;
+    private TagServiceInterface $service;
 
     public function __construct()
     {
-        $pdo = Db::getInstance()->getConnection();
-        $repository = new TagRepository($pdo);
-        $this->service = new TagService($repository);
+        $this->service = AppContainer::getTagService();
     }
 
     public function index(): bool|string
